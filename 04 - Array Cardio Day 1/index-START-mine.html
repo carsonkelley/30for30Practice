@@ -70,14 +70,21 @@
         return -1;
       if(a > b)
         return 1;
-        
+
       return 0;
     });
     console.log(nameSort);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const tally = data.reduce(function(tals, item) {
+      if(item in tals)
+        tals[item]++;
+      else
+        tals[item] = 1;
+      return tals;
+    },{});
+    console.log(tally);
   </script>
 </body>
 </html>
