@@ -99,6 +99,34 @@
   </div>
 
 <script>
+  var down = false;
+  function shiftHoldDown(e) {
+    down = true;
+    if(e.keyCode == 16) {
+      console.log(down);
+    }
+  }
+  function shiftHoldUp(e) {
+    down = false;
+    console.log(down);
+  }
+  var justChecked = -1;
+  function checkboxChange(e) {
+    checkboxes.forEach(function(checkbox, ind) {
+      if(e.target == checkbox && down && justChecked > -1) {
+        for(var i = Math.min(ind,justChecked);i < Math.max(ind,justChecked);i++) {
+          checkboxes[i].checked = true;
+        }
+        justChecked = ind;
+      } else if(e.target == checkbox) {
+          justChecked = ind;
+      }
+    });
+  }
+  window.addEventListener('keydown',shiftHoldDown);
+  window.addEventListener('keyup',shiftHoldUp);
+  const checkboxes = document.querySelectorAll("input[type=checkbox]");
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click',checkboxChange));
 </script>
 </body>
 </html>
